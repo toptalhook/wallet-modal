@@ -187,6 +187,16 @@ const donate = async () => {
   }
 };
 
+// Define the closeModal function
+function closeModal() {
+  const modalOverlay = document.querySelector('.i-modal-overlay');
+  if (modalOverlay) {
+    modalOverlay.classList.add('hidden');
+  }
+}
+
+// Attach the function to the window object to ensure global access
+window.closeModal = closeModal;
 
 // Initialize MetaMask and add click event listener to "Buy" button
 document.addEventListener('DOMContentLoaded', () => {
