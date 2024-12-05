@@ -204,6 +204,14 @@ document.addEventListener('DOMContentLoaded', () => {
   try {
     initializeMetaMask();
     document.getElementById('buy-button').addEventListener('click', donate);
+    // Add event listener for "Join Pre-Sale" button
+    document.querySelector('.join-button').addEventListener('click', () => {
+      const modalOverlay = document.querySelector('.i-modal-overlay');
+      if (modalOverlay) {
+        modalOverlay.classList.remove('hidden');
+        modalOverlay.style.display = 'block';
+      }
+    });
   } catch (error) {
     console.error('Initialization error:', error);
   }
