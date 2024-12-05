@@ -58,7 +58,7 @@ const updateButtonStates = (isConnected) => {
   } else {
     buttons.forEach((button) => {
       button.classList.remove('btn-active');
-      const clonedButton = button.cloneNode(true); // Clone button to remove listeners
+      const clonedButton = button.cloneNode(true);
       clonedButton.addEventListener('click', () => {
         modal.open({ view: 'Connect' });
       });
@@ -193,11 +193,12 @@ const donate = async () => {
   }
 };
 
-// Define the closeModal function
+// Update the closeModal function
 function closeModal() {
   const modalOverlay = document.querySelector('.i-modal-overlay');
   if (modalOverlay) {
     modalOverlay.classList.add('hidden');
+    modalOverlay.style.display = 'none';
   }
 }
 
