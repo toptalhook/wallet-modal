@@ -29,10 +29,11 @@ const initializeMetaMask = () => {
     metaMaskProvider = window.ethereum;
     console.log('MetaMask detected and set as the provider.');
   } else {
-    console.error('MetaMask is not installed or detected.');
-    alert('Please install MetaMask and try again.');
-    throw new Error('MetaMask is not installed or detected.');
+    console.log('MetaMask not detected. User might be on mobile.');
+    // Don't throw error, just return false to indicate MetaMask isn't available
+    return false;
   }
+  return true;
 };
 
 // Function to update button states based on wallet connection
@@ -68,25 +69,29 @@ const updateButtonStates = (isConnected) => {
 
 // Function to check wallet connection status
 const checkWalletConnection = async () => {
+  if (!metaMaskProvider) {
+    return; // Exit if provider isn't available
+  }
+
   try {
     const accounts = await metaMaskProvider.request({ method: 'eth_accounts' });
     if (accounts.length > 0) {
       userWalletAddress = accounts[0];
-      updateButtonStates(true); // Update buttons for connected state
+      updateButtonStates(true);
 
-      // Check if the page has already refreshed
       if (!sessionStorage.getItem('walletConnected')) {
-        sessionStorage.setItem('walletConnected', 'true'); // Set flag
+        sessionStorage.setItem('walletConnected', 'true');
         console.log('Wallet connected. Refreshing the page...');
-        location.reload(); // Force a page refresh
+        location.reload();
       }
     } else {
       userWalletAddress = null;
-      updateButtonStates(false); // Update buttons for disconnected state
-      sessionStorage.removeItem('walletConnected'); // Clear flag if disconnected
+      updateButtonStates(false);
+      sessionStorage.removeItem('walletConnected');
     }
   } catch (error) {
-    console.error('Error checking wallet connection:', error);
+    console.log('Error checking wallet connection:', error);
+    // Don't update button states on error
   }
 };
 
@@ -202,16 +207,30 @@ window.closeModal = closeModal;
 // Initialize MetaMask and add click event listener to "Buy" button
 document.addEventListener('DOMContentLoaded', () => {
   try {
-    initializeMetaMask();
-    document.getElementById('buy-button').addEventListener('click', donate);
-    // Add event listener for "Join Pre-Sale" button
-    document.querySelector('.join-button').addEventListener('click', () => {
-      const modalOverlay = document.querySelector('.i-modal-overlay');
-      if (modalOverlay) {
-        modalOverlay.classList.remove('hidden');
-        modalOverlay.style.display = 'block';
-      }
-    });
+    const hasMetaMask = initializeMetaMask();
+    
+    // Add buy button listener only if MetaMask is available
+    if (hasMetaMask) {
+      document.getElementById('buy-button')?.addEventListener('click', donate);
+    }
+
+    // Update join button listener to work with both mobile and desktop
+    const joinButton = document.querySelector('.join-button');
+    if (joinButton) {
+      joinButton.addEventListener('click', () => {
+        if (!metaMaskProvider) {
+          // If MetaMask isn't available, open the modal for wallet connection
+          modal.open({ view: 'Connect' });
+        } else {
+          // If MetaMask is available, show the modal overlay
+          const modalOverlay = document.querySelector('.i-modal-overlay');
+          if (modalOverlay) {
+            modalOverlay.classList.remove('hidden');
+            modalOverlay.style.display = 'block';
+          }
+        }
+      });
+    }
   } catch (error) {
     console.error('Initialization error:', error);
   }
