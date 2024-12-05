@@ -50,6 +50,7 @@ const updateButtonStates = (isConnected) => {
       button.addEventListener('click', () => {
         if (modalOverlay) {
           modalOverlay.classList.remove('hidden');
+          modalOverlay.style.display = 'block';
         }
       });
     });
