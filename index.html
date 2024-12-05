@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Header</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <img src="/assets/logo.svg" alt="DAO Maker Logo" />
+            </div>
+            <appkit-button>
+                Connect Wallet
+            </appkit-button>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="live-badge">LIVE</div>
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <img src="./assets/logo_meta.png" alt="MetaVirus Logo" class="hero-logo" />
+                <h1>MetaVirus</h1>
+                <div class="social-icons">
+                    <a href="/" target="_self" class="icon">
+                        <i class="fas fa-home"></i>
+                    </a>
+                    <a href="https://twitter.com" target="_blank" class="icon">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://telegram.org" target="_blank" class="icon">
+                        <i class="fab fa-telegram-plane"></i>
+                    </a>
+                    <a href="https://discord.com" target="_blank" class="icon">
+                        <i class="fab fa-discord"></i>
+                    </a>
+
+                    <a href="https://medium.com" target="_blank" class="icon">
+                        <i class="fab fa-medium"></i>
+                    </a>
+
+                </div>
+                <p>
+                    MetaVirus is an innovative Web3 game that combines blockchain technology
+                    with immersive gameplay, offering a decentralized, freely traded mobile pet game.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="project-details">
+        <h2>Project Details</h2>
+        <div class="separator">
+            <div class="blue-line"></div>
+            <div class="gray-line"></div>
+        </div>
+    </section>
+
+    <section class="hero-info-section">
+        <div class="hero-card">
+            <div class="left-content">
+                <img src="./assets/presale.png" alt="MetaVirus" class="hero-image" />
+            </div>
+            <div class="right-content">
+                <div class="tabs">
+                    <button class="tab">Offerings</button>
+                    <button class="tab">Key Metrics</button>
+                    <button class="tab">Unlocks</button>
+                </div>
+                <div class="countdown">
+                    <p>MetaVirus PRE-Sale ends in:</p>
+                    <div id="countdown-timer">Loading...</div>
+                    <button class="join-button">Join Pre-Sale</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal with ETH to MVT Converter and Sale Ticket -->
+    <div class="i-modal-overlay  ">
+        <div class="i-modal-content">
+            <div class="i-close-modal-container">
+                <button class="i-close-modal" onclick="closeModal()">X</button>
+            </div>
+
+            <!-- Sale Ticket Section -->
+            <div class="i-sale-ticket">
+                <!-- Logo for Public Sale -->
+                <div class="i-logo-container">
+                    <img src="./assets/logo.svg" alt="Logo" class="i-sale-logo">
+                </div>
+                <h2 class="i-h2">Public Sale Ticket</h2>
+
+
+                <!-- Status Row -->
+                <div class="i-ticket-item">
+                    <span>Status:</span>
+                    <span id="status" class="i-status-right"></span>
+                </div>
+
+                <hr class="i-separator">
+
+                <!-- Price Row -->
+                <div class="i-ticket-item">
+                    <span>Private Price:</span>
+                    <span id="private-price">$0.02</span>
+                </div>
+                <hr class="i-separator">
+
+                <div class="i-ticket-item">
+                    <span>Listing Price:</span>
+                    <span><span class="i-highlight">min</span> <span id="listing-price">$0.18</span></span>
+                </div>
+                <hr class="i-separator">
+
+                <div class="i-ticket-item">
+                    <span>Individual Allocation:</span>
+                    <span><span class="i-highlight">max</span> <span id="individual-allocation">$122,930</span></span>
+                </div>
+                <hr class="i-separator">
+
+
+                <div class="i-ticket-item">
+                    <span>Blockchain Network:</span>
+                    <span>
+                        <img src="assets/eth-logo.png" alt="ETH Logo" class="i-token-logo">
+                        <span class="i-highlight"></span>
+                        <img src="assets/bnb-logo.png" alt="BSC Logo" class="i-token-logo">
+                    </span>
+                </div>
+                <hr class="i-separator">
+
+                <div class="i-ticket-item">
+                    <span>Sale End:</span>
+                    <span id="sale-end-time">Loading....</span>
+                </div>
+                <hr class="i-separator">
+
+                <div class="i-ticket-item">
+                    <span>Minimal Alocation:</span>
+                    <span>
+                        <img src="./assets/eth-logo.png" alt="ETH Logo" class="i-token-logo"> 0.1
+                        or
+                        <img src="assets/bnb-logo.png" alt="BSC Logo" class="i-token-logo"> 0.5
+                    </span>
+                </div>
+            </div>
+
+            <!-- ETH/BNB Dropdown and Amount Input -->
+            <div class="i-amount-input-container">
+                <label class="i-label" for="donation-amount">From:</label>
+                <div class="i-input-with-dropdown">
+                    <img id="selected-token-icon" src="./assets/eth-logo.png" alt="Token Icon" class="i-token-logo" />
+                    <select id="crypto-type" class="i-select">
+                        <option value="ETH" data-icon="./assets/eth-logo.png" selected>ETH</option>
+                        <option value="BNB" data-icon="./assets/bnb-logo.png">BNB</option>
+                    </select>
+                    <input id="donation-amount" class="i-input" type="number" placeholder="Enter amount" />
+                </div>
+            </div>
+
+            <!-- MVT Amount Section -->
+            <div class="i-amount-input-container">
+                <label class="i-label" for="mvt-amount">To:</label>
+                <div class="i-input-with-output">
+                    <input class="i-input" type="text" id="mvt-amount" name="mvt-amount" placeholder="MVT amount"
+                        disabled />
+                </div>
+            </div>
+
+            <button id="buy-button" class="i-btn">Buy</button>
+        </div>
+    </div>
+    </div>
+
+    <section class="section-wrapper">
+        <!-- Left Column -->
+        <div class="left-column">
+            <!-- First Card -->
+            <div class="card public-round-card">
+                <h3>Public Round</h3>
+                <p>Registrations are opened to anyone with more than $500 worth of tokens in their wallet.</p>
+                <p class="status">Sale Open</p>
+            </div>
+
+            <div class="card second-round-card">
+                <h3>Public Round</h3>
+                <p>Registrations are opened to anyone with more than $500 worth of tokens in their wallet.</p>
+                <p class="status">Sale Open</p>
+            </div>
+            <div class="card strong-hold-card">
+                <h3>Strong Hold Offer</h3>
+                <p>Premium round offerings for DAO holders only. Higher winning chances with lower fees.</p>
+                <p>Registration ends in:</p>
+                <p id="strong-hold-timer">Loading...</p>
+                <button class="participate-button">Participate</button>
+            </div>
+
+        </div>
+
+        <!-- Right Column -->
+        <div class="right-column">
+            <!-- Existing content -->
+            <img src="./assets/hero_info.png" alt="MetaVirus Banner" class="content-image" />
+            <h2 class="section-title">What is MetaVirus (MVT)?</h2>
+            <p class="section-paragraph">
+                MetaVirus is an innovative Web3 game that combines blockchain technology with immersive gameplay,
+                offering a decentralized, freely traded mobile pet game. Our team has over 17 years of experience in
+                game development and operations, and 6 years in the blockchain field.
+            </p>
+            <p class="section-paragraph">
+                MetaVirus is an auto-battle pet RPG with a cute Q-version style, faction battles, union wars, and an
+                infinite growth system. The game integrates Free to Play (F2P) and Play to Earn (P2E) models, allowing
+                players to earn real value through in-game activities and asset trading.
+            </p>
+
+            <!-- Game Basics Section -->
+            <div class="content-section">
+                <img src="./assets/hero_info1.png" alt="Game Basics" class="content-image" />
+                <p class="section-paragraph">
+                    MetaVirus launched Pre-charge in Web3 gaming platform NexGami in June 15 2024, as its first
+                    Launchpad Pre-charge product successfully raised $10 million within six hours. This Pre-charge
+                    adopted an innovative "recharge is fundraising" model, where all users participating in the
+                    fundraising received two types of project tokens.
+                </p>
+                <p class="section-paragraph">
+                    The circulating token, NEXU, will be 100% refunded after the event and can be used for purchasing
+                    all game products on the NexGami platform in the future. The governance token of the MetaVirus
+                    project, MTV, will be unlocked linearly over one year and is planned to be listed on exchanges
+                    within three months after the Pre-charge.
+                </p>
+                <p class="section-paragraph">
+                    MetaVirus made beta test in December 2023, attract over 350,000 user registrations, with 71,308
+                    participants in the XP event, minting Genesis pet NFTs.
+                </p>
+            </div>
+
+            <!-- What makes MetaVirus (MVT) unique? -->
+            <div class="content-section">
+                <h2 class="section-title">What makes MetaVirus (MVT) unique?</h2>
+                <p class="section-paragraph">
+                    Our game is similar to traditional games like Pokémon, but it incorporates blockchain technology and
+                    token economics. The strength of our project lies in its community-based foundation, where we make
+                    players the core participants in the development and operation of the game. This approach allows us
+                    to attract a larger and more enduring player base.
+                </p>
+                <img src="./assets/hero_info2.png" alt="Game Basics" class="content-image" />
+            </div>
+
+            <!-- Who is MetaVirus (MVT) team? -->
+            <div class="content-section">
+                <h2 class="section-title">Who is MetaVirus (MVT) team?</h2>
+                <ul class="team-list">
+                    <li>
+                        <a href="https://example.com/brice-bian" target="_blank" class="team-link">
+                            <strong>Brice Bian (CEO)</strong>
+                        </a>
+                        - 19 years of game production experience. Responsible for online games with millions of revenue.
+                        His work <em>'Gods Killer Online'</em> had the highest monthly income in the Chinese mobile game
+                        market.
+                    </li>
+                    <li>
+                        <a href="https://example.com/marco-tuo" target="_blank" class="team-link">
+                            <strong>Marco Tuo (CTO)</strong>
+                        </a>
+                        - 20 years of game development experience. Chief architect of millions of online mobile games.
+                        Technical director of large-scale travel VR games.
+                    </li>
+                    <li>
+                        <a href="https://example.com/belal-abdullah" target="_blank" class="team-link">
+                            <strong>Belal Abdullah (CMO)</strong>
+                        </a>
+                        - A driven Fintech professional and serial entrepreneur with a demonstrated ability to complete
+                        tasks with accuracy.
+                    </li>
+                </ul>
+            </div>
+
+            <!-- What is MetaVirus (MVT) roadmap? -->
+            <div class="content-section">
+                <h2 class="section-title">What is MetaVirus (MVT) roadmap?</h2>
+                <img src="./assets/hero_info3.png" alt="Game Basics" class="content-image" />
+            </div>
+
+            <!-- MetaVirus (MVT) revenue streams -->
+            <div class="content-section">
+                <h2 class="section-title">MetaVirus (MVT) revenue streams</h2>
+                <img src="./assets/hero_info4.png" alt="Game Basics" class="content-image" />
+                <img src="./assets/hero_info5.png" alt="Game Basics" class="content-image" />
+            </div>
+
+            <!-- What are MetaVirus (MVT) token metrics? -->
+            <div class="content-section">
+                <h2 class="section-title">What are MetaVirus (MVT) token metrics?</h2>
+                <img src="./assets/hero_info6.png" alt="Game Basics" class="content-image" />
+            </div>
+
+
+            <!-- Who are the partners of MetaVirus (MVT)? -->
+            <div class="content-section">
+                <h2 class="section-title">Who are the partners of MetaVirus (MVT)?</h2>
+                <p class="section-paragraph">
+                    NexGami, Assure, Nabox, Gate Web3 Wallet, Tencent, ByteDance, Chainlink Labs, Glaze, QuestN,
+                    Poolzboost, TaskOn, Alibaba Games, Perfect World Games.
+                </p>
+            </div>
+        </div>
+
+    </section>
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-column">
+                <img src="./assets/logo.svg" alt="DAO Maker Logo" class="footer-logo">
+                <p>Tokenizing the Future</p>
+            </div>
+            <div class="footer-column">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="#">DAO Launchpad</a></li>
+                    <li><a href="#">Stake DAO</a></li>
+                    <li><a href="#">Community Voted</a></li>
+                    <li><a href="#">Farms and Vestings</a></li>
+                    <li><a href="#">DAO Swap</a></li>
+                    <li><a href="#">Governance</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">Brand Assets</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Sitemap</a></li>
+                    <li><a href="#">DAO Bridge</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Social</h4>
+                <ul>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Telegram</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">TikTok</a></li>
+                    <li><a href="#">YouTube</a></li>
+                    <li><a href="#">Discord</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms</a></li>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Cookies</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-divider"></div>
+        <div class="footer-bottom">
+            <p class="disclaimer">
+                * Past performances do not indicate future success. This web page and any other contents published on
+                this
+                website shall not constitute investment advice, financial advice, trading advice, or any other kind of
+                advice.
+                You alone assume the sole responsibility of evaluating the merits and risks associated with using any
+                information or other content on this website before making any decisions based on such information.
+            </p>
+            <p>&copy; 2024 DAO Maker. All rights reserved.</p>
+            <div class="footer-social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-discord"></i></a>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+
+    
+    <script type="module" src="./src/main.js"></script>
+    
+
+</body>
+
+</html>

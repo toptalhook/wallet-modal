@@ -1,0 +1,1113 @@
+/* Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Header Styling */
+header {
+    background-color: rgba(242, 244, 247, 0.7); /* Semi-transparent background */
+    -webkit-backdrop-filter: blur(24px); /* For Safari and iOS */
+    backdrop-filter: blur(24px); /* Blurred background effect */
+    position: fixed; /* Keep the header fixed at the top */
+    top: 0;
+    left: 0;
+    width: 100%; /* Full width */
+    z-index: 10; /* Ensure it stays above other elements */
+    padding: 10px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+}
+
+/* Centered content within the header */
+.header-content {
+    height: 105px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+}
+
+/* Logo Styling */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between logo image and text */
+}
+
+.logo img {
+    height: 50px; /* Adjust logo size */
+}
+
+/* Wallet Button */
+.wallet-button {
+    background-color: #007bff; /* Button background color */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.wallet-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Main content */
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+/* Hero Section */
+.hero-section {
+    margin-top: 110px; /* Offset for the fixed header */
+    position: relative;
+    width: 100%;
+    height: 52vh; /* Adjust the height of the hero section */
+    background-image: url('./assets/hero_1.png'); /* Background image */
+    background-size: cover; /* Make the background cover the entire section */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat;
+}
+
+/* Hero Overlay */
+.hero-overlay {
+    position: absolute; /* Layer over the background */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Optional dark overlay */
+    z-index: 1; /* Ensure it appears over the hero section */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hero Content */
+.hero-content {
+    position: relative;
+    z-index: 2; /* Keep the content on top of everything */
+    text-align: center;
+    color: white;
+    max-width: 800px;
+    padding: 20px;
+}
+
+.hero-logo {
+    width: 75px;
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.hero-content p {
+    font-size: 1.2rem; /* Adjust the font size */
+    line-height: 1.8; /* Line spacing for readability */
+    color: #ffffff; /* Light gray color for better contrast */
+    text-align: center; /* Center the text */
+    margin: 20px auto; /* Add vertical spacing */
+    max-width: 700px; /* Limit the width for better readability */
+    font-family: 'Arial', sans-serif; /* Optional: Change the font */
+}
+
+/* Social Icons */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px; /* Space above the icons */
+}
+
+.social-icons .icon {
+    color: white; /* Default color */
+    font-size: 30px; /* Icon size */
+    transition: transform 0.3s ease, color 0.3s ease;
+    text-decoration: none; /* Remove underline */
+}
+
+.social-icons .icon:hover {
+    color: #007bff; /* Hover color */
+    transform: scale(1.2); /* Slight zoom effect on hover */
+}
+
+/* Live Badge */
+.live-badge {
+    position: absolute;
+    top: 20px; /* Distance from the top of the hero section */
+    left: 20px; /* Distance from the left of the hero section */
+    background-color: #ecfdf3; /* Green background for the badge */
+    color: #027a48; /* White text */
+    font-size: 0.9rem; /* Adjust font size */
+    font-weight: bold;
+    padding: 5px 10px; /* Padding inside the badge */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Optional shadow for a better look */
+    text-transform: uppercase; /* Make the text uppercase */
+    z-index: 3; /* Ensure it appears above other elements */
+}
+
+/* Project Details Section */
+.project-details {
+    max-width: 1200px; /* Match the header's max-width */
+    margin: 20px auto; /* Center the section and add vertical spacing */
+    padding: 0 15px; /* Add padding for small screens */
+    text-align: left; /* Align text to the left */
+}
+
+.project-details h2 {
+    font-size: 1rem; /* Adjust title font size */
+    font-weight: bold;
+    color: #1fa5ff; /* Blue color for the title */
+    margin-bottom: 0; /* Remove margin between the title and separator */
+    margin-bottom: 20px;
+}
+
+/* Separator Styling */
+.separator {
+    display: flex;
+    align-items: center;
+    margin-top: 5px; /* Optional spacing above the separator */
+}
+
+.separator .blue-line {
+    width: 115px; /* Length of the blue line */
+    height: 3px; /* Thickness of the blue line */
+    background-color: #1fa5ff; /* Blue color */
+    border-radius: 2px; /* Rounded edges */
+    margin: 0; /* Remove margin */
+}
+
+.separator .gray-line {
+    flex-grow: 1; /* Stretch the gray line */
+    height: 1px; /* Thickness of the gray line */
+    background-color: #ccc; /* Light gray color */
+    margin: 0; /* Remove margin */
+}
+
+/* Hero Info Section */
+.hero-info-section {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px 15px;
+}
+
+.hero-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    border-radius: 12px 0 0 12px; /* Only round the top-left and bottom-left corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    gap: 20px;
+    position: relative; /* Enable positioning for overlay */
+    overflow: hidden; /* Clip the overlay to the card */
+}
+
+.left-content {
+    position: relative; /* Enable positioning for the overlay */
+    flex: 1; /* Make the left side take up equal space */
+    height: 550px; /* Fixed height for the container */
+    overflow: hidden; /* Clip any excess content */
+}
+
+/* Add an overlay effect */
+.left-content::before {
+    content: ""; /* Create a pseudo-element */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Semi-transparent black overlay */
+    z-index: 1; /* Place it over the image but under the content */
+}
+
+.hero-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Center and crop the image */
+    z-index: 0; /* Place the image behind the overlay */
+}
+
+.right-content {
+    flex: 1; /* Make the right side take up equal space */
+    padding: 20px;
+    border-radius: 0 12px 12px 0; /* Round only the top-right and bottom-right corners */
+    text-align: left;
+    background: #fff;
+    z-index: 2; /* Ensure the right content stays above the overlay */
+}
+
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Tabs Container */
+.tabs {
+    display: flex;
+    gap: 0; /* Remove gap to make the tabs connected */
+    border: 1px solid #e0e0e0; /* Add border around all tabs */
+    border-radius: 8px; /* Rounded corners for the container */
+    overflow: hidden; /* Ensure borders stay consistent */
+    background: #f9f9f9; /* Light background */
+}
+
+/* Individual Tab Buttons */
+.tab {
+    flex: 1; /* Each tab takes equal width */
+    text-align: center; /* Center align text */
+    padding: 10px 15px; /* Padding inside tabs */
+    font-size: 1rem; /* Adjust text size */
+    font-weight: 500; /* Slightly bold text */
+    color: #6c757d; /* Default text color */
+    background: #f9f9f9; /* Same background as the container */
+    border: none; /* Remove inner borders */
+    cursor: pointer; /* Show pointer on hover */
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Active Tab */
+.tab.active {
+    background: #e7eaee; /* Highlight color for active tab */
+    color: rgb(80, 72, 72); /* Text color for active tab */
+    font-weight: bold; /* Slightly bolder text */
+}
+
+/* Tab Hover Effect */
+.tab:hover {
+    background: #e0e0e0; /* Light gray hover effect */
+    color: #495057; /* Darker text on hover */
+}
+
+/* Optional: Focus Effect for Accessibility */
+.tab:focus {
+    border: 2px solid #007bff; /* Add focus outline for accessibility */
+}
+
+.tabs button:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+.tabs button:last-child {
+    border-radius: 0 8px 8px 0;
+}
+
+.countdown {
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.countdown p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+#countdown-timer {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.join-button {
+    background: #1a1a2e;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.join-button:hover {
+    background: #3a3a5e;
+}
+
+/* Section Wrapper */
+.section-wrapper {
+    display: flex;
+    max-width: 1200px; /* Match the width of the rest of the content */
+    margin: 20px auto; /* Center the section */
+    gap: 20px; /* Spacing between the columns */
+    padding: 0 15px; /* Padding for small screens */
+}
+
+/* Left Column */
+.left-column {
+    flex: 1; /* Take less space (1/4th of the available space) */
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Spacing between the cards */
+}
+
+/* Card Styling (Same as before) */
+.card {
+    background-color: #fff; /* White background for the cards */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Right Column */
+.right-column {
+    flex: 3; /* Take much more space (3.5/4th of the available space) */
+    background-color: #fff; /* White background for the main content */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px;
+}
+
+
+/* Card Specific Styles */
+.public-round-card {
+    background-color: #2ed3b7; /* Bright teal background */
+    color: white; /* White text for contrast */
+    border-radius: 12px; /* Rounded corners */
+    padding: 20px; /* Padding inside the card */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    text-align: left; /* Align text to the left */
+    font-family: Arial, sans-serif;
+}
+
+/* Heading Style */
+.public-round-card h3 {
+    font-size: 1.2rem; /* Adjust heading size */
+    font-weight: bold; /* Make heading bold */
+    margin-bottom: 10px; /* Add space below the heading */
+}
+
+/* Paragraph Style */
+.public-round-card p {
+    font-size: 1rem; /* Standard text size */
+    margin-bottom: 10px; /* Space between paragraphs */
+    line-height: 1.5; /* Better readability */
+}
+
+/* Sale Status Style */
+.public-round-card .status {
+    font-weight: bold; /* Make "Sale Open" text bold */
+    font-size: 1rem; /* Adjust size for emphasis */
+    margin-top: 10px; /* Space above the status */
+}
+
+
+/* Second Card Specific Styles */
+.second-round-card {
+    background-color: #8854d0; /* Purple background for the second card */
+    color: white; /* White text for contrast */
+    border-radius: 12px; /* Rounded corners */
+    padding: 20px; /* Padding inside the card */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    text-align: left; /* Align text to the left */
+    font-family: Arial, sans-serif;
+}
+
+/* Heading Style for Second Card */
+.second-round-card h3 {
+    font-size: 1.2rem; /* Adjust heading size */
+    font-weight: bold; /* Make heading bold */
+    margin-bottom: 10px; /* Add space below the heading */
+}
+
+/* Paragraph Style for Second Card */
+.second-round-card p {
+    font-size: 1rem; /* Standard text size */
+    margin-bottom: 10px; /* Space between paragraphs */
+    line-height: 1.5; /* Better readability */
+}
+
+/* Sale Status Style for Second Card */
+.second-round-card .status {
+    font-weight: bold; /* Make "Sale Open" text bold */
+    font-size: 1rem; /* Adjust size for emphasis */
+    margin-top: 10px; /* Space above the status */
+}
+
+/* Third Card Specific Styles */
+.strong-hold-card {
+    background-color: #ff7b42; /* Orange background */
+    color: white; /* White text for contrast */
+    border-radius: 12px; /* Rounded corners */
+    padding: 20px; /* Internal padding */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    text-align: left; /* Align text to the left */
+    font-family: Arial, sans-serif;
+}
+
+/* Heading Style for Third Card */
+.strong-hold-card h3 {
+    font-size: 1.2rem; /* Adjust heading size */
+    font-weight: bold; /* Bold heading */
+    margin-bottom: 10px; /* Space below heading */
+}
+
+/* Paragraph Style for Third Card */
+.strong-hold-card p {
+    font-size: 1rem; /* Standard text size */
+    margin-bottom: 10px; /* Spacing between paragraphs */
+    line-height: 1.5; /* Better readability */
+}
+
+/* Countdown Timer Style */
+#strong-hold-timer {
+    font-size: 1.5rem; /* Large font size for visibility */
+    font-weight: bold; /* Bold text */
+    margin-bottom: 15px; /* Space below timer */
+}
+
+/* Participate Button Style */
+.participate-button {
+    background: #1a1a2e; /* Dark background for button */
+    color: #fff; /* White text */
+    border: none; /* No border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px 20px; /* Padding inside the button */
+    font-size: 1rem; /* Button text size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background 0.3s ease;
+    display: block; /* Block display to center-align the button */
+    margin: 0 auto; /* Center-align the button */
+}
+
+.participate-button:hover {
+    background: #3a3a5e; /* Darker color on hover */
+}
+
+/* Right Column Title */
+.section-title {
+    font-size: 1.8rem; /* Larger font size for the title */
+    font-weight: bold; /* Bold font for emphasis */
+    margin-bottom: 15px; /* Space below the title */
+    color: #1a1a2e; /* Dark color for contrast */
+}
+
+/* Right Column Paragraphs */
+.section-paragraph {
+    font-weight: bold;
+    font-size: 1rem; /* Standard font size for paragraphs */
+    line-height: 1.6; /* Comfortable line spacing */
+    color: #616161ad; /* Gray color for readability */
+    margin-bottom: 15px; /* Space between paragraphs */
+}
+
+
+/* Right Column Image */
+.content-image {
+    width: 100%; /* Make the image take full width of the right column */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 12px; /* Rounded corners for a polished look */
+    margin-bottom: 20px; /* Space below the image */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+}
+
+/* Section Styling */
+.content-section {
+    margin-top: 30px; /* Add space between sections */
+}
+
+.features-list,
+.roadmap-list,
+.tokenomics-list {
+    list-style: disc; /* Standard bullet points */
+    margin: 15px 20px; /* Adjust spacing and indentation */
+    padding: 0;
+    color: #4a4a4a; /* Gray text for readability */
+    line-height: 1.6; /* Comfortable line spacing */
+}
+
+.features-list li,
+.roadmap-list li,
+.tokenomics-list li {
+    font-size: 1rem; /* Standard font size */
+    margin-bottom: 10px; /* Space between items */
+}
+
+/* Highlight Key Points in Roadmap */
+.roadmap-list strong {
+    color: #007bff; /* Highlighted text color */
+}
+
+/* Section Title */
+.section-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #1a1a2e;
+}
+
+.team-list {
+    list-style-type: disc;
+    margin-left: 20px; /* Indentation for the list */
+    color: #4a4a4a; /* Neutral gray color */
+    font-size: 1rem; /* Standard font size */
+    line-height: 1.8; /* Comfortable spacing */
+}
+
+.team-list li {
+    margin-bottom: 15px; /* Space between list items */
+}
+
+.team-list strong {
+    color: #1a1a2e; /* Bold color for names */
+}
+
+.team-list em {
+    font-style: italic; /* Italicize game titles */
+    color: #555; /* Slightly lighter gray */
+}
+
+.team-link {
+    color: #007bff; /* Default link color */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s ease;
+}
+
+.team-link:hover {
+    color: #0056b3; /* Darker blue on hover */
+    text-decoration: underline; /* Add underline on hover */
+}
+
+/* Footer Styling */
+.footer {
+    background-color: #f9f9f9; /* Light gray background */
+    color: #6c757d; /* Subtle text color */
+    font-family: Arial, sans-serif;
+    padding: 40px 20px; /* Adjust padding for uniformity */
+}
+
+.footer-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 150px;
+}
+
+.footer-logo {
+    width: 140px; /* Adjust logo size */
+    margin-bottom: 10px;
+}
+
+.footer-column p {
+    font-size: 0.9rem;
+    color: #495057; /* Slightly darker for contrast */
+}
+
+.footer-column h4 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #343a40; /* Darker heading color */
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 8px; /* Add spacing between items */
+}
+
+.footer-column ul li a {
+    color: #6c757d;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+    color: #007bff; /* Add hover effect */
+}
+
+.footer-divider {
+    border-top: 1px solid #e9ecef;
+    margin: 30px 0; /* Spacing around the divider */
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 10px 20px;
+}
+
+.footer-bottom .disclaimer {
+    font-size: 0.85rem; /* Slightly smaller for the disclaimer */
+    line-height: 1.5;
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+.footer-bottom p {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.footer-social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.footer-social-icons .social-icon {
+    color: #6c757d;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.footer-social-icons .social-icon:hover {
+    color: #007bff; /* Highlight on hover */
+}
+
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+/* Centering the modal */
+.i-modal-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow-y: hidden;
+}
+
+.i-dropdown-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.i-select {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+.i-modal-content {
+    background-color: white;
+    padding: 20px;
+    zoom: 0.9;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Sale Ticket Section */
+.i-sale-ticket {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Logo container and logo styling */
+.i-logo-container {
+    margin-bottom: 20px;
+}
+
+.i-sale-logo {
+    max-width: 150px;
+    width: 100%;
+    height: auto;
+}
+
+/* Sale Ticket Header */
+.i-h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+/* Ticket item structure */
+.i-ticket-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding: 8px;
+    border-radius: 8px;
+    flex-wrap: wrap;
+}
+
+.i-ticket-item span {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Token logo styling */
+.i-token-logo {
+    margin-bottom: 5px;
+    width: 20px;
+    height: auto;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+/* Converter Section */
+.i-converter-section {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.i-label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+/* Input Fields */
+.i-input {
+    width: 100%;
+    height: 70px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+
+/* Convert Button */
+.i-btn {
+    width: 100%;
+    height: 50px;
+    padding: 12px;
+    background-color: #45b2f4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.i-highlight {
+    font-size: 13px !important; /* Adjust this value as needed */
+    font-weight: bold; /* Optional: Make the text bold */
+  
+}
+
+/* Example: Hover effect (optional) */
+.i-highlight:hover {
+    color: #f44336; /* Change color on hover */
+    font-size: 20px; /* Slightly increase size on hover */
+}
+
+/* Adjust input and logo position */
+.input-with-eth {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.i-input-with-eth input {
+    width: 100%;
+    padding: 10px;
+    padding-left: 40px; /* Creates space for the logo */
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-image: url('./assets/eth-logo.png'); /* Add the ETH logo as background */
+    background-repeat: no-repeat;
+    background-position: 10px center; /* Position the logo inside the input */
+    background-size: 30px; /* Size of the logo */
+    box-sizing: border-box;
+    text-align: center; /* Center the text */
+}
+
+/* Adjust input and logo position */
+.input-with-output {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.i-input-with-output input {
+    width: 100%;
+    padding: 10px;
+    padding-left: 40px; /* Creates space for the logo */
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-image: url('./assets/token.png'); /* Add the ETH logo as background */
+    background-repeat: no-repeat;
+    background-position: 10px center; /* Position the logo inside the input */
+    background-size: 30px; /* Size of the logo */
+    box-sizing: border-box;
+    text-align: center; /* Center the text */
+}
+
+/* Container to help position the close button */
+.i-close-modal-container {
+    display: flex;
+    justify-content: flex-end; /* Align to the right */
+    
+}
+
+/* Styling for the close button itself */
+.i-close-modal {
+    background: none;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.i-close-modal:hover {
+    color: #ff0000; /* Highlight color on hover */
+}
+.i-modal-overlay.hidden {
+    display: none; /* Completely hide the modal */
+}
+
+@media (max-width: 1280px) {
+    .i-modal-content {
+        zoom: 0.7;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Загальні налаштування для мобільних екранів */
+    .project-details {
+        display: none;
+    }
+
+    .hero-info-section {
+        margin-top: 20px;
+    }
+
+    .hero-card {
+        flex-direction: column;
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .right-content,
+    .right-column {
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+        flex: none;
+    }
+
+    .tabs {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+
+    .tab {
+        flex: none;
+        padding: 8px 10px;
+    }
+
+    .countdown {
+        margin: 10px auto;
+        padding: 10px;
+        background: none;
+        border: none;
+    }
+
+    #countdown-timer {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .join-button {
+        width: 100%;
+        padding: 12px;
+        font-size: 1.1rem;
+    }
+
+    .left-column {
+        display: none;
+    }
+
+    /* Зміна стилів для заголовка */
+    .header-content {
+        height: 80px;
+        padding: 0 10px;
+    }
+
+    .logo img {
+        height: 35px;
+    }
+
+    .wallet-button {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+        border-radius: 15px;
+    }
+
+    /* Адаптація для hero-секції */
+    .hero-section {
+        margin-top: 100px;
+    }
+
+    .hero-logo {
+        width: 55px;
+    }
+
+    .hero-content {
+        padding: 10px;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 0.7rem;
+        margin-bottom: 15px;
+    }
+
+    .social-icons {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .social-icons .icon {
+        font-size: 25px;
+    }
+
+    .i-modal-content {
+        zoom: 0.5;
+    }
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .i-modal-content {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .i-h2 {
+        font-size: 20px;
+    }
+
+    .i-btn {
+        font-size: 16px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 425px) {
+    .header-content .logo img {
+        max-width: 40vw;
+    }
+    appkit-button {
+        max-width: 30vw;
+    }
+    .header-content {
+        justify-content: left;
+    }
+}
+
+@media (max-height: 885px) {
+    .i-modal-content {
+        zoom: 0.8;
+    }
+}
+
+@media (max-height: 768px) {
+    .i-modal-content {
+        zoom: 0.7;
+    }
+}
+
+@media (max-height: 700px) {
+    .i-modal-content {
+        zoom: 0.6;
+    }
+}
+
+@media (max-height: 600px) {
+    .i-modal-content {
+        zoom: 0.5;
+    }
+}
+
+
+@media (max-height: 480px) {
+    .i-modal-content {
+        zoom: 0.35;
+    }
+}
+
+@media (max-height: 375px) {
+    .i-modal-content {
+        zoom: 0.3;
+    }
+}
