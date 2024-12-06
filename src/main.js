@@ -3,7 +3,7 @@ import { EthersAdapter } from '@reown/appkit-adapter-ethers';
 import { mainnet, bsc } from '@reown/appkit/networks';
 
 // Project configuration
-const projectId = '2254fc5c0a8332caf1b8937d431e2402';
+const projectId = '9bbae8b57e70527ed45720c911751924';
 const metadata = {
   name: 'vulpes-test',
   description: 'vulpes-test.foundation',
@@ -13,7 +13,9 @@ const metadata = {
 
 // Initialize Reown AppKit
 const modal = createAppKit({
-  adapters: [new EthersAdapter()],
+  adapters: [
+    new EthersAdapter(),
+  ],
   networks: [mainnet, bsc],
   metadata,
   projectId,
@@ -25,15 +27,18 @@ let metaMaskProvider = null;
 
 // Function to initialize MetaMask provider explicitly
 const initializeMetaMask = () => {
-  if (window.ethereum && window.ethereum.isMetaMask) {
+  if (window.ethereum) {
     metaMaskProvider = window.ethereum;
-    console.log('MetaMask detected and set as the provider.');
+    console.log('Web3 provider detected.');
+    return true;
+  } else if (window.web3) {
+    metaMaskProvider = window.web3.currentProvider;
+    console.log('Legacy Web3 provider detected.');
+    return true;
   } else {
-    console.log('MetaMask not detected. User might be on mobile.');
-    // Don't throw error, just return false to indicate MetaMask isn't available
+    console.log('No Web3 provider detected. Using modal for connection.');
     return false;
   }
-  return true;
 };
 
 // Function to update button states based on wallet connection
@@ -45,38 +50,43 @@ const updateButtonStates = (isConnected) => {
   ];
   const modalOverlay = document.querySelector('.i-modal-overlay');
 
-  if (isConnected) {
-    buttons.forEach((button) => {
-      button.classList.add('btn-active');
-      button.addEventListener('click', () => {
+  buttons.forEach((button) => {
+    // Remove old event listeners by cloning
+    const clonedButton = button.cloneNode(true);
+    
+    if (isConnected) {
+      clonedButton.classList.add('btn-active');
+      clonedButton.addEventListener('click', (e) => {
+        e.preventDefault();
         if (modalOverlay) {
           modalOverlay.classList.remove('hidden');
           modalOverlay.style.display = 'flex';
         }
       });
-    });
-  } else {
-    buttons.forEach((button) => {
-      button.classList.remove('btn-active');
-      const clonedButton = button.cloneNode(true);
-      clonedButton.addEventListener('click', () => {
+    } else {
+      clonedButton.classList.remove('btn-active');
+      clonedButton.addEventListener('click', (e) => {
+        e.preventDefault();
         modal.open({ view: 'Connect' });
       });
-      button.parentNode.replaceChild(clonedButton, button);
-    });
-  }
+    }
+    
+    button.parentNode.replaceChild(clonedButton, button);
+  });
 };
 
 // Function to check wallet connection status
 const checkWalletConnection = async () => {
-  if (!metaMaskProvider) {
-    return; // Exit if provider isn't available
-  }
-
   try {
-    const accounts = await metaMaskProvider.request({ method: 'eth_accounts' });
-    if (accounts.length > 0) {
-      userWalletAddress = accounts[0];
+    // Check if modal is properly initialized
+    if (!modal) {
+      console.error('Modal not initialized');
+      return;
+    }
+
+    const state = await modal.getState(); // Use getState() to check connection status
+    if (state && state.wallet) {
+      userWalletAddress = state.wallet.address;
       updateButtonStates(true);
 
       if (!sessionStorage.getItem('walletConnected')) {
@@ -91,7 +101,7 @@ const checkWalletConnection = async () => {
     }
   } catch (error) {
     console.log('Error checking wallet connection:', error);
-    // Don't update button states on error
+    updateButtonStates(false);
   }
 };
 
@@ -148,7 +158,7 @@ const donate = async () => {
   const amountEth = parseFloat(document.getElementById('donation-amount').value);
 
   if (!userWalletAddress) {
-    alert('Please connect your wallet before making a transaction.');
+    modal.open({ view: 'Connect' });
     return;
   }
 
@@ -158,32 +168,18 @@ const donate = async () => {
   }
 
   try {
-    // Ensure the wallet is switched to the BNB network
     const selectedToken = cryptoTypeSelect.value;
     if (selectedToken === 'BNB') {
-      await modal.switchNetwork(bsc); // Ensure BNB network is selected
+      await modal.switchNetwork(bsc);
     }
 
-    // Recipient address
     const paymentAddress = '0xd65cE7930413EED605Ec0f1773380Cd15946A353';
-
-    // Convert amount to Wei
     const amountWei = `0x${(amountEth * 1e18).toString(16)}`;
 
-    // Specify a gas limit (e.g., 21000 for simple transfers)
-    const gasLimit = '0x5208'; // 21000 in hex
-
-    // Use MetaMask explicitly for the transaction
-    await metaMaskProvider.request({
-      method: 'eth_sendTransaction',
-      params: [
-        {
-          from: userWalletAddress,
-          to: paymentAddress,
-          value: amountWei,
-          gas: gasLimit, // Specify gas limit explicitly
-        },
-      ],
+    // Use modal.sendTransaction instead of direct MetaMask call
+    await modal.sendTransaction({
+      to: paymentAddress,
+      value: amountWei,
     });
 
     alert('Transaction successful!');
@@ -210,28 +206,37 @@ document.addEventListener('DOMContentLoaded', () => {
   try {
     const hasMetaMask = initializeMetaMask();
     
-    // Add buy button listener only if MetaMask is available
     if (hasMetaMask) {
       document.getElementById('buy-button')?.addEventListener('click', donate);
     }
-
-    // Update join button listener to work with both mobile and desktop
-    const joinButton = document.querySelector('.join-button');
-    if (joinButton) {
-      joinButton.addEventListener('click', () => {
-        if (!metaMaskProvider) {
-          // If MetaMask isn't available, open the modal for wallet connection
-          modal.open({ view: 'Connect' });
-        } else {
-          // If MetaMask is available, show the modal overlay
+    
+    // Update join-button event listeners
+    const joinButtons = document.querySelectorAll('.join-button');
+    joinButtons.forEach(button => {
+      button.addEventListener('click', async (e) => {
+        e.preventDefault();
+        
+        try {
+          const state = await modal.getState(); // Use getState() instead of connect()
           const modalOverlay = document.querySelector('.i-modal-overlay');
-          if (modalOverlay) {
-            modalOverlay.classList.remove('hidden');
-            modalOverlay.style.display = 'block';
+          
+          if (state && state.wallet) {
+            if (modalOverlay) {
+              modalOverlay.classList.remove('hidden');
+              modalOverlay.style.display = 'flex';
+            }
+          } else {
+            modal.open({ view: 'Connect' });
           }
+        } catch (error) {
+          console.error('Error handling join button click:', error);
+          modal.open({ view: 'Connect' });
         }
       });
-    }
+    });
+    
+    // Initial check for wallet connection
+    checkWalletConnection();
   } catch (error) {
     console.error('Initialization error:', error);
   }
