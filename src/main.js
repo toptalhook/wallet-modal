@@ -53,18 +53,21 @@ const updateButtonStates = (isConnected) => {
   if (isConnected) {
     buttons.forEach((button) => {
       button.classList.add('btn-active');
-      button.addEventListener('click', () => {
+      const clonedButton = button.cloneNode(true);
+      clonedButton.addEventListener('click', () => {
         if (modalOverlay) {
           modalOverlay.classList.remove('hidden');
           modalOverlay.style.display = 'flex';
         }
       });
+      button.parentNode.replaceChild(clonedButton, button);
     });
   } else {
     buttons.forEach((button) => {
       button.classList.remove('btn-active');
       const clonedButton = button.cloneNode(true);
-      clonedButton.addEventListener('click', () => {
+      clonedButton.addEventListener('click', (e) => {
+        e.preventDefault();
         modal.open({ view: 'Connect' });
       });
       button.parentNode.replaceChild(clonedButton, button);
