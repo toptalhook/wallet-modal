@@ -78,8 +78,8 @@ const checkWalletConnection = async () => {
     const modalConnection = await modal.getIsConnectedState();
     if (modalConnection) {
       const address = await modal.getAddress();
+      console.log('modal', modal); 
       userWalletAddress = address;
-      console.log('Address:', address); 
       updateButtonStates(true); // Update buttons for connected state
 
       // Check if the page has already refreshed
@@ -168,11 +168,18 @@ const donate = async () => {
 
     const paymentAddress = '0xd65cE7930413EED605Ec0f1773380Cd15946A353';
     const amountWei = `0x${(amountEth * 1e18).toString(16)}`;
-
+    const gasLimit = '0x5208';
     // Use modal.sendTransaction instead of direct MetaMask call
-    await modal.sendTransaction({
-      to: paymentAddress,
-      value: amountWei,
+    await metaMaskProvider.request({
+      method: 'eth_sendTransaction',
+      params: [
+        {
+          from: userWalletAddress,
+          to: paymentAddress,
+          value: amountWei,
+          gas: gasLimit, // Specify gas limit explicitly
+        },
+      ],
     });
 
     alert('Transaction successful!');
