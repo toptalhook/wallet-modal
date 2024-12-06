@@ -50,58 +50,51 @@ const updateButtonStates = (isConnected) => {
   ];
   const modalOverlay = document.querySelector('.i-modal-overlay');
 
-  buttons.forEach((button) => {
-    // Remove old event listeners by cloning
-    const clonedButton = button.cloneNode(true);
-    
-    if (isConnected) {
-      clonedButton.classList.add('btn-active');
-      clonedButton.addEventListener('click', (e) => {
-        e.preventDefault();
+  if (isConnected) {
+    buttons.forEach((button) => {
+      button.classList.add('btn-active');
+      button.addEventListener('click', () => {
         if (modalOverlay) {
           modalOverlay.classList.remove('hidden');
           modalOverlay.style.display = 'flex';
         }
       });
-    } else {
-      clonedButton.classList.remove('btn-active');
-      clonedButton.addEventListener('click', (e) => {
-        e.preventDefault();
+    });
+  } else {
+    buttons.forEach((button) => {
+      button.classList.remove('btn-active');
+      const clonedButton = button.cloneNode(true);
+      clonedButton.addEventListener('click', () => {
         modal.open({ view: 'Connect' });
       });
-    }
-    
-    button.parentNode.replaceChild(clonedButton, button);
-  });
+      button.parentNode.replaceChild(clonedButton, button);
+    });
+  }
 };
 
 // Function to check wallet connection status
 const checkWalletConnection = async () => {
   try {
-    // Check if modal is properly initialized
-    if (!modal) {
-      console.error('Modal not initialized');
-      return;
-    }
+    const modalConnection = await modal.getIsConnectedState();
+    if (modalConnection) {
+      const address = await modal.getAddress();
+      userWalletAddress = address;
+      console.log('Address:', address); 
+      updateButtonStates(true); // Update buttons for connected state
 
-    const state = await modal.getState(); // Use getState() to check connection status
-    if (state && state.wallet) {
-      userWalletAddress = state.wallet.address;
-      updateButtonStates(true);
-
+      // Check if the page has already refreshed
       if (!sessionStorage.getItem('walletConnected')) {
-        sessionStorage.setItem('walletConnected', 'true');
+        sessionStorage.setItem('walletConnected', 'true'); // Set flag
         console.log('Wallet connected. Refreshing the page...');
-        location.reload();
+        location.reload(); // Force a page refresh
       }
     } else {
       userWalletAddress = null;
-      updateButtonStates(false);
-      sessionStorage.removeItem('walletConnected');
+      updateButtonStates(false); // Update buttons for disconnected state
+      sessionStorage.removeItem('walletConnected'); // Clear flag if disconnected
     }
   } catch (error) {
-    console.log('Error checking wallet connection:', error);
-    updateButtonStates(false);
+    console.error('Error checking wallet connection:', error);
   }
 };
 
@@ -206,37 +199,28 @@ document.addEventListener('DOMContentLoaded', () => {
   try {
     const hasMetaMask = initializeMetaMask();
     
+    // Add buy button listener only if MetaMask is available
     if (hasMetaMask) {
       document.getElementById('buy-button')?.addEventListener('click', donate);
     }
-    
-    // Update join-button event listeners
-    const joinButtons = document.querySelectorAll('.join-button');
-    joinButtons.forEach(button => {
-      button.addEventListener('click', async (e) => {
-        e.preventDefault();
-        
-        try {
-          const state = await modal.getState(); // Use getState() instead of connect()
-          const modalOverlay = document.querySelector('.i-modal-overlay');
-          
-          if (state && state.wallet) {
-            if (modalOverlay) {
-              modalOverlay.classList.remove('hidden');
-              modalOverlay.style.display = 'flex';
-            }
-          } else {
-            modal.open({ view: 'Connect' });
-          }
-        } catch (error) {
-          console.error('Error handling join button click:', error);
+
+    // Update join button listener to work with both mobile and desktop
+    const joinButton = document.querySelector('.join-button');
+    if (joinButton) {
+      joinButton.addEventListener('click', () => {
+        if (!metaMaskProvider) {
+          // If MetaMask isn't available, open the modal for wallet connection
           modal.open({ view: 'Connect' });
+        } else {
+          // If MetaMask is available, show the modal overlay
+          const modalOverlay = document.querySelector('.i-modal-overlay');
+          if (modalOverlay) {
+            modalOverlay.classList.remove('hidden');
+            modalOverlay.style.display = 'block';
+          }
         }
       });
-    });
-    
-    // Initial check for wallet connection
-    checkWalletConnection();
+    }
   } catch (error) {
     console.error('Initialization error:', error);
   }
