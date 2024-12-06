@@ -86,12 +86,24 @@ document.addEventListener("DOMContentLoaded", () => {
         const cryptoAmount = parseFloat(cryptoAmountInput.value);
         const currentRate = conversionRates[selectedToken];
 
+        console.log('Validating:', { // Add debugging
+            selectedToken,
+            cryptoAmount,
+            currentRate,
+            minRequired: minAmountRequired[selectedToken]
+        });
+
         if (!isNaN(cryptoAmount) && cryptoAmount >= minAmountRequired[selectedToken] && currentRate > 0) {
             const cryptoToUsd = cryptoAmount * currentRate;
             const mvtAmount = (cryptoToUsd / privatePriceValue).toFixed(2);
             mvtAmountOutput.value = mvtAmount;
             convertButton.textContent = `Buy ${mvtAmount} MVT`;
             convertButton.disabled = false;
+            
+            console.log('Updated values:', { // Add debugging
+                mvtAmount,
+                buttonText: convertButton.textContent
+            });
         } else {
             convertButton.textContent = `Minimum ${minAmountRequired[selectedToken]} ${selectedToken} required`;
             mvtAmountOutput.value = "";
@@ -142,6 +154,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Handle Crypto Amount Input
     cryptoAmountInput.addEventListener("input", validateAndUpdate);
+    // Add touch event listeners for mobile
+    cryptoAmountInput.addEventListener("touchstart", validateAndUpdate);
+    cryptoAmountInput.addEventListener("touchend", validateAndUpdate);
 
     // Handle "Buy" Button Click
     convertButton.addEventListener("click", () => {
