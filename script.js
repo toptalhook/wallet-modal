@@ -86,28 +86,48 @@ document.addEventListener("DOMContentLoaded", () => {
         const cryptoAmount = parseFloat(cryptoAmountInput.value);
         const currentRate = conversionRates[selectedToken];
 
-        console.log('Validating:', { // Add debugging
+        // Ensure convertButton is available
+        const convertButton = document.getElementById('buy-button');
+        if (!convertButton) {
+            console.error('Buy button not found');
+            return;
+        }
+
+        console.log('Validating:', {
             selectedToken,
             cryptoAmount,
             currentRate,
             minRequired: minAmountRequired[selectedToken]
         });
 
-        if (!isNaN(cryptoAmount) && cryptoAmount >= minAmountRequired[selectedToken] && currentRate > 0) {
+        if (!isNaN(cryptoAmount) && 
+            cryptoAmount >= minAmountRequired[selectedToken] && 
+            currentRate > 0) {
             const cryptoToUsd = cryptoAmount * currentRate;
             const mvtAmount = (cryptoToUsd / privatePriceValue).toFixed(2);
             mvtAmountOutput.value = mvtAmount;
+            
+            // Force button update
             convertButton.textContent = `Buy ${mvtAmount} MVT`;
             convertButton.disabled = false;
+            convertButton.style.opacity = '1';
             
-            console.log('Updated values:', { // Add debugging
+            console.log('Updated values:', {
                 mvtAmount,
-                buttonText: convertButton.textContent
+                buttonText: convertButton.textContent,
+                buttonDisabled: convertButton.disabled
             });
         } else {
+            // Force button update for invalid state
             convertButton.textContent = `Minimum ${minAmountRequired[selectedToken]} ${selectedToken} required`;
-            mvtAmountOutput.value = "";
             convertButton.disabled = true;
+            convertButton.style.opacity = '0.5';
+            mvtAmountOutput.value = "";
+            
+            console.log('Invalid input state:', {
+                buttonText: convertButton.textContent,
+                buttonDisabled: convertButton.disabled
+            });
         }
     }
 

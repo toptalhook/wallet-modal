@@ -35,6 +35,11 @@ const initializeMetaMask = () => {
     metaMaskProvider = window.web3.currentProvider;
     console.log('Legacy Web3 provider detected.');
     return true;
+  } else if (/Mobile/i.test(navigator.userAgent) && window.ethereum) {
+    // Specifically handle mobile browsers with MetaMask
+    metaMaskProvider = window.ethereum;
+    console.log('Web3 provider detected on mobile.');
+    return true;
   } else {
     console.log('No Web3 provider detected. Using modal for connection.');
     return false;
@@ -81,7 +86,6 @@ const checkWalletConnection = async () => {
     const modalConnection = await modal.getIsConnectedState();
     if (modalConnection) {
       const address = await modal.getAddress();
-      console.log('modal', modal); 
       userWalletAddress = address;
       updateButtonStates(true); // Update buttons for connected state
 
@@ -89,7 +93,7 @@ const checkWalletConnection = async () => {
       if (!sessionStorage.getItem('walletConnected')) {
         sessionStorage.setItem('walletConnected', 'true'); // Set flag
         console.log('Wallet connected. Refreshing the page...');
-        location.reload(); // Force a page refresh
+        // location.reload(); // Force a page refresh
       }
     } else {
       userWalletAddress = null;
@@ -149,8 +153,14 @@ const switchToSelectedNetwork = async () => {
 };
 
 // Function to handle donations (payment process)
-const donate = async () => {
+const donate = async (event) => {
+  // Prevent any default behavior
+  if (event) event.preventDefault();
+  
   console.log('Clicked "Buy"');
+  // Use a more mobile-friendly notification method
+  
+
   const amountEth = parseFloat(document.getElementById('donation-amount').value);
 
   if (!userWalletAddress) {
@@ -159,7 +169,7 @@ const donate = async () => {
   }
 
   if (isNaN(amountEth) || amountEth <= 0) {
-    alert('Please enter a valid amount.');
+    window.alert('Please enter a valid amount.');
     return;
   }
 
@@ -172,6 +182,7 @@ const donate = async () => {
     const paymentAddress = '0xd65cE7930413EED605Ec0f1773380Cd15946A353';
     const amountWei = `0x${(amountEth * 1e18).toString(16)}`;
     const gasLimit = '0x5208';
+
     // Use modal.sendTransaction instead of direct MetaMask call
     await metaMaskProvider.request({
       method: 'eth_sendTransaction',
@@ -185,10 +196,10 @@ const donate = async () => {
       ],
     });
 
-    alert('Transaction successful!');
+    window.alert('Transaction successful!');
   } catch (error) {
     console.error('Transaction error:', error);
-    alert(`Transaction failed: ${error.message}`);
+    window.alert(`Transaction failed: ${error.message}`);
   }
 };
 
@@ -203,15 +214,30 @@ function closeModal() {
 
 // Attach the function to the window object to ensure global access
 window.closeModal = closeModal;
-
 // Initialize MetaMask and add click event listener to "Buy" button
 document.addEventListener('DOMContentLoaded', () => {
   try {
     const hasMetaMask = initializeMetaMask();
     
-    // Add buy button listener only if MetaMask is available
-    if (hasMetaMask) {
-      document.getElementById('buy-button')?.addEventListener('click', donate);
+    // Improved buy button handling
+    const buyButton = document.getElementById('buy-button');
+    if (buyButton) {
+      // Remove any existing listeners
+      buyButton.replaceWith(buyButton.cloneNode(true));
+      
+      // Get the fresh reference
+      const newBuyButton = document.getElementById('buy-button');
+      
+      // Add both click and touchend events with passive: false
+      ['click', 'touchend'].forEach(eventType => {
+        newBuyButton.addEventListener(eventType, async (e) => {
+          e.preventDefault();
+          console.log(`${eventType} event triggered on buy button`);
+          await donate(e);
+        }, { passive: false });
+      });
+    } else {
+      console.warn('Buy button not found in DOM');
     }
 
     // Update join button listener to work with both mobile and desktop
@@ -235,3 +261,4 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('Initialization error:', error);
   }
 });
+
